@@ -166,7 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
+  
   // 🔹 Recommendation Card Widget
   Widget buildRecommendationCard(String title, String imagePath) {
     return GestureDetector(
