@@ -1,3 +1,4 @@
+import 'package:dagol/setup/gender.dart';
 import 'package:flutter/material.dart';
 import 'package:dagol/loginscreen/loginpage.dart';
 
@@ -37,7 +38,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         context,
         PageRouteBuilder(
           pageBuilder:
-              (context, animation, secondaryAnimation) => const LoginScreen(),
+              (context, animation, secondaryAnimation) => const GenderSelectionScreen(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return FadeTransition(opacity: animation, child: child);
           },
