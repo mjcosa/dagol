@@ -1,52 +1,22 @@
+import 'package:dagol/workout/components/hard.dart';
+import 'package:dagol/workout/components/pages/inter/bicepcurl.dart';
+import 'package:dagol/workout/components/pages/inter/rope.dart';
+import 'package:dagol/workout/components/pages/inter/splitsquat.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import '../workouts.dart';
 
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.light,
-    ),
-  );
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class InterWorkoutPage extends StatelessWidget {
+  const InterWorkoutPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Workout App',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primaryColor: const Color(0xFFFF4D6D),
-        scaffoldBackgroundColor: Colors.black,
-        fontFamily: 'Inter',
-        textTheme: const TextTheme(
-          bodyLarge: TextStyle(color: Colors.white),
-          bodyMedium: TextStyle(color: Colors.white),
-          bodySmall: TextStyle(color: Colors.white),
-          titleLarge: TextStyle(color: Colors.white),
-          titleMedium: TextStyle(color: Colors.white),
-          titleSmall: TextStyle(color: Colors.white),
-        ),
-        colorScheme: ColorScheme.fromSwatch().copyWith(
-          primary: const Color(0xFFFF4D6D),
-          secondary: const Color(0xFFFF4D6D),
-          surface: Colors.black, // Replaced background with surface
-          onSurface: Colors.white,
-          brightness: Brightness.dark,
-        ),
-      ),
-      home: const WorkoutScreen(),
-    );
+    // Return WorkoutScreen directly; styling and theming handled globally
+    return const InterWorkoutScreen();
   }
 }
 
-class WorkoutScreen extends StatelessWidget {
-  const WorkoutScreen({Key? key}) : super(key: key);
+class InterWorkoutScreen extends StatelessWidget {
+  const InterWorkoutScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -57,123 +27,135 @@ class WorkoutScreen extends StatelessWidget {
           children: [
             // Scrollable Content
             SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Header
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.chevron_left,
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Header
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.chevron_left,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            'Workout',
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w600,
                               color: Theme.of(context).primaryColor,
                             ),
-                            const SizedBox(width: 8),
-                            Text(
-                              'Workout',
-                              style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.w600,
-                                color: Theme.of(context).primaryColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: const [
-                            Icon(Icons.search, color: Colors.white),
-                            SizedBox(width: 20),
-                            Icon(Icons.notifications, color: Colors.white),
-                            SizedBox(width: 20),
-                            Icon(Icons.person, color: Colors.white),
-                          ],
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 24),
-
-                    // Category Filters
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: const [
-                          CategoryFilter(label: 'Beginner'),
-                          SizedBox(width: 12),
-                          CategoryFilter(label: 'Intermediate'),
-                          SizedBox(width: 12),
-                          CategoryFilter(label: 'Advanced'),
+                          ),
                         ],
                       ),
-                    ),
-                    const SizedBox(height: 24),
-
-                    // Featured Workout Card
-                    const FeaturedWorkoutCard(
-                      title: 'Functional Training',
-                      duration: '45 min',
-                      calories: '1450 cal',
-                      exercises: '5 Exercises',
-                      imageUrl: 'assets/images/image7.png',
-                      isFavorite: false,
-                    ),
-                    const SizedBox(height: 24),
-
-                    // Let's Go Beginner Section
-                    const Text(
-                      'Let\'s Go Beginner',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w600,
+                      Row(
+                        children: const [
+                          Icon(Icons.search, color: Colors.white),
+                          SizedBox(width: 20),
+                          Icon(Icons.notifications, color: Colors.white),
+                          SizedBox(width: 20),
+                          Icon(Icons.person, color: Colors.white),
+                        ],
                       ),
-                    ),
-                    const SizedBox(height: 8),
-                    const Text(
-                      'Explore Different Workout Styles',
-                      style: TextStyle(
-                        color: Color(0xFF888888),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
+                    ],
+                  ),
+                  const SizedBox(height: 24),
 
-                    // Workout Cards List
-                    Column(
-                      children: [
-                        WorkoutCard(
-                          title: 'Upper Body',
-                          duration: '60 min',
-                          calories: '1320 cal',
-                          exercises: '5 Exercises',
-                          imageUrl: 'assets/images/image8.png',
-                          isFavorite: false,
-                        ),
-                        const SizedBox(height: 16),
-                        WorkoutCard(
-                          title: 'Full Body Stretching',
-                          duration: '45 min',
-                          calories: '1450 cal',
-                          exercises: '5 Exercises',
-                          imageUrl: 'assets/images/image9.png',
-                          isFavorite: true,
-                        ),
-                        const SizedBox(height: 16),
-                        WorkoutCard(
-                          title: 'Glutes & Abs',
-                          duration: '45 min',
-                          calories: '1350 cal',
-                          exercises: '6 Exercises',
-                          imageUrl: 'assets/images/image10.png',
-                          isFavorite: true,
-                        ),
-                        const SizedBox(
-                            height: 80), // Extra space for navigation bar
+                  // Category Filters
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: const [
+                        CategoryFilter(label: 'Beginner'),
+                        SizedBox(width: 12),
+                        CategoryFilter(label: 'Intermediate'),
+                        SizedBox(width: 12),
+                        CategoryFilter(label: 'Advanced'),
                       ],
                     ),
-                  ],
-                ),
+                  ),
+                  const SizedBox(height: 24),
+
+                  // Featured Workout Card
+                  const FeaturedWorkoutCard(
+                    title: 'Battle Rope Workout',
+                    duration: '30 mins',
+                    calories: '1450 cal',
+                    exercises: 'Strength, Cardiovascular Endurance',
+                    imageUrl: 'assets/images/intermediateexercise4.jpg',
+                    isFavorite: false,
+                  ),
+                  const SizedBox(height: 24),
+
+                  // Let's Go Beginner Section
+                  const Text(
+                    'Let\'s Go Intermediate',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  const Text(
+                    'Explore Different Workouts',
+                    style: TextStyle(
+                      color: Color(0xFF888888),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+
+                  // Workout Cards List
+                  Column(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (_) => const BicepCurlPage()));
+                        },
+                        child: WorkoutCard(
+                          title: 'Bicep Curls',
+                          duration: '20 min',
+                          calories: '1000 cal',
+                          exercises: 'Biceps',
+                          imageUrl: 'assets/images/intermediateexercise1.jpeg',
+                          isFavorite: false,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (_) => const SplitSquatPage()));
+                        },
+                        child: WorkoutCard(
+                          title: 'Bulgarian Split Squat',
+                          duration: '30 min',
+                          calories: '1450 cal',
+                          exercises: 'Quads, Glutes',
+                          imageUrl: 'assets/images/intermediateexercise2.jpg',
+                          isFavorite: true,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (_) => const RopePage()));
+                        },
+                        child: WorkoutCard(
+                          title: 'Battle Rope Workout',
+                          duration: '30 min',
+                          calories: '1450 cal',
+                          exercises: 'Strength, Cardiovascular Endurance',
+                          imageUrl: 'assets/images/intermediateexercise4.jpg',
+                          isFavorite: true,
+                        ),
+                      ),
+                      const SizedBox(height: 80), // Extra space for navigation bar
+                    ],
+                  ),
+                ],
               ),
             ),
 
@@ -221,23 +203,39 @@ class CategoryFilter extends StatelessWidget {
     this.isSelected = false,
   }) : super(key: key);
 
+  void _navigateToCategory(BuildContext context) {
+    switch (label.toLowerCase()) {
+      case 'beginner':
+        Navigator.push(context, MaterialPageRoute(builder: (_) => const WorkoutPage()));
+        break;
+      case 'intermediate':
+        break;
+      case 'advanced':
+        Navigator.push(context, MaterialPageRoute(builder: (_) => const HardWorkoutPage()));
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      decoration: BoxDecoration(
-        color: isSelected ? Theme.of(context).primaryColor : Colors.transparent,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: isSelected ? Colors.transparent : const Color(0xFF333333),
-          width: 1,
+    return GestureDetector(
+      onTap: () => _navigateToCategory(context),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          color: isSelected ? Theme.of(context).primaryColor : Colors.transparent,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: isSelected ? Colors.transparent : const Color(0xFF333333),
+            width: 1,
+          ),
         ),
-      ),
-      child: Text(
-        label,
-        style: TextStyle(
-          fontSize: 14,
-          color: isSelected ? Colors.white : Colors.white,
+        child: Text(
+          label,
+          style: const TextStyle(
+            fontSize: 14,
+            color: Colors.white,
+          ),
         ),
       ),
     );
@@ -306,7 +304,7 @@ class FeaturedWorkoutCard extends StatelessWidget {
               if (isFavorite)
                 const Positioned(
                   top: 16,
-                  right: 16,
+                  right: 56,
                   child: Icon(
                     Icons.star,
                     color: Colors.white,
@@ -321,17 +319,12 @@ class FeaturedWorkoutCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      title,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
                 const SizedBox(height: 8),
                 // Using Column to stack the duration, calories, and exercises vertically
@@ -524,6 +517,17 @@ class WorkoutCard extends StatelessWidget {
               ],
             ],
           ),
+
+          // Favorite star icon
+          if (isFavorite)
+            const Positioned(
+              top: 8,
+              right: 8,
+              child: Icon(
+                Icons.star,
+                color: Colors.white,
+              ),
+            ),
         ],
       ),
     );

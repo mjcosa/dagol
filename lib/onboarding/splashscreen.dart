@@ -1,9 +1,8 @@
-import 'package:dagol/loginscreen/loginpage.dart';
-import 'package:dagol/menu/homepage.dart';
+import 'package:dagol/registration/registerpage.dart';
 import 'package:flutter/material.dart';
 
 class OnBoarding extends StatefulWidget {
-  const OnBoarding({Key? key}) : super(key: key);
+  const OnBoarding({super.key});
 
   @override
   State<OnBoarding> createState() => _OnBoardingState();
@@ -252,7 +251,7 @@ final List<Map<String, String>> screens = [
                               if (_currentPage == screens.length-1) {
                                 Navigator.pushReplacement(
                                   context,
-                                  MaterialPageRoute(builder: (context) => const LoginScreen()),
+                                  MaterialPageRoute(builder: (context) => const RegisterScreen()),
                                 );
                               } else {
                                 _nextPage(); 

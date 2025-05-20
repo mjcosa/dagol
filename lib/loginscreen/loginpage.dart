@@ -1,9 +1,9 @@
 import 'package:dagol/menu/homepage.dart';
+import 'package:dagol/registration/registerpage.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
-
+  const LoginScreen({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,7 +105,7 @@ class LoginScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Placeholder()),
+                  MaterialPageRoute(builder: (context) => RegisterScreen()),
                 );
               },
               child: Text(

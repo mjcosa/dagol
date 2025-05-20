@@ -4,12 +4,16 @@ Project: The GOL (Gym Of Legends)
 Feature: Home Page
 Description: A page that display recommendation   */ 
 
+import 'package:dagol/workout/components/pages/easy/pullup.dart';
+import 'package:dagol/workout/components/pages/inter/rope.dart';
+import 'package:dagol/workout/components/pages/inter/splitsquat.dart';
+import 'package:dagol/workout/workouts.dart';
 import 'package:flutter/material.dart';
 
 
 class HomeScreen extends StatefulWidget {
 
-    const HomeScreen({Key? key}) : super(key: key);
+    const HomeScreen({super.key});
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -30,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               // 🔹 Header with Search & Notification Icons
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -52,13 +56,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         IconButton(
                           icon: Icon(Icons.search, color: Colors.blue),
                           onPressed: () {
-                            print("Search Clicked");
                           },
                         ),
                         IconButton(
                           icon: Icon(Icons.notifications, color: Colors.blue),
                           onPressed: () {
-                            print("Notifications Clicked");
                           },
                         ),
                       ],
@@ -78,18 +80,25 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
 
-              SizedBox(height: 20),
+              SizedBox(height: 30),
 
               // 🔹 Recommendations Section
               sectionHeader("Recommendations"),
               SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  buildRecommendationCard("Squat Exercise", 'images/unsplash.jpg'),
-                  buildRecommendationCard("Full Body Stretching", 'images/unsplash.jpg'),
-                ],
+              SizedBox(
+                height: 200,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  children: [
+                    buildRecommendationCard("Squat Exercise", 'images/unsplash.jpg'),
+                    buildRecommendationCard("Full Body Stretching", 'assets/images/easyexercise7.jpg'),
+                    buildRecommendationCard("Power Exercise", 'assets/images/hardexercise1.jpeg'),
+                    buildRecommendationCard("Push Day Routine", 'assets/images/routines.jpg'),
+                  ],
+                ),
               ),
+
 
               SizedBox(height: 20),
 
@@ -101,13 +110,20 @@ class _HomeScreenState extends State<HomeScreen> {
               // 🔹 Articles & Tips Section
               sectionHeader("Articles & Tips"),
               SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  buildArticleCard("Supplement Guide", 'images/unsplash.jpg'),
-                  buildArticleCard("Effective Routines", 'images/unsplash.jpg'),
-                ],
+              SizedBox(
+                height: 200,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  children: [
+                    buildArticleCard("Supplement Guide", 'assets/images/nutrition.jpg'),
+                    buildArticleCard("Effective Routines", 'assets/images/routines.jpg'),
+                    buildArticleCard("Fitness Routine", 'assets/images/intermediateexercise2.jpeg'),
+                    buildArticleCard("Posture Tips", 'assets/images/easyexercise7.jpg'),
+                  ],
+                ),
               ),
+
 
               SizedBox(height: 20), // Extra space at the bottom
             ],
@@ -115,7 +131,6 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
 
-      // 🔹 Bottom Navigation Bar
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.red,
         selectedItemColor: Colors.blue,
@@ -125,6 +140,24 @@ class _HomeScreenState extends State<HomeScreen> {
           setState(() {
             bottomNavIndex = index;
           });
+
+          // Navigate to corresponding screen
+          switch (index) {
+            case 0:
+              break;
+            case 1:
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Placeholder()),
+              );
+              break;
+            case 2:
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Placeholder()),
+              );
+              break;
+          }
         },
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
@@ -132,6 +165,7 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
         ],
       ),
+
     );
   }
 
@@ -152,58 +186,96 @@ class _HomeScreenState extends State<HomeScreen> {
         setState(() {
           selectedIndex = index;
         });
+
+        // Navigate to corresponding screen
+        Widget targetScreen;
+        switch (index) {
+          case 0:
+            targetScreen = WorkoutPage();
+            break;
+          case 1:
+            targetScreen = Placeholder();
+            break;
+          case 2:
+            targetScreen = Placeholder();
+            break;
+          case 3:
+            targetScreen = Placeholder();
+            break;
+          default:
+            return;
+        }
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => targetScreen),
+        );
       },
       child: Column(
         children: [
           Icon(icon,
-              color: selectedIndex == index ? Colors.red : Colors.white,
+              color: Colors.white,
               size: 30),
           SizedBox(height: 5),
           Text(title,
               style: TextStyle(
-                  color: selectedIndex == index ? Colors.red : Colors.white)),
+                  color: Colors.white)),
         ],
       ),
     );
   }
+
   
   // 🔹 Recommendation Card Widget
   Widget buildRecommendationCard(String title, String imagePath) {
     return GestureDetector(
       onTap: () {
-        print("$title Clicked");
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => SplitSquatPage()),
+        );
       },
       child: Container(
-        padding: EdgeInsets.all(10),
-        width: 150,
+        margin: EdgeInsets.only(right: 16),
+        width: 200, // Increased size
         decoration: BoxDecoration(
-            color: Colors.grey[900], borderRadius: BorderRadius.circular(10)),
+          color: Colors.grey[900],
+          borderRadius: BorderRadius.circular(16),
+        ),
+        padding: EdgeInsets.all(12),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset(imagePath, width: 100, height: 80, fit: BoxFit.cover),
+            Image.asset(imagePath, width: 200, height: 120, fit: BoxFit.cover),
             SizedBox(height: 10),
-            Text(title,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center),
+            Text(
+              title,
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 
+
   // 🔹 Weekly Challenge Card
   Widget buildWeeklyChallengeCard() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 0),
       child: GestureDetector(
         onTap: () {
-          print("Weekly Challenge Clicked");
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => RopePage()),
+        );
         },
         child: Container(
-          padding: EdgeInsets.all(15),
+          padding: EdgeInsets.all(20),
           decoration: BoxDecoration(
             color: Colors.red,
             borderRadius: BorderRadius.circular(10),
@@ -220,11 +292,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              // Image on the Right
               Image.asset(
                 'images/unsplash.jpg',
-                width: 60, // Slightly bigger image
-                height: 60,
+                width: 65, 
+                height: 65,
                 fit: BoxFit.cover,
               ),
             ],
@@ -238,23 +309,32 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget buildArticleCard(String title, String imagePath) {
     return GestureDetector(
       onTap: () {
-        print("$title Clicked");
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => PullUpPage()),
+        );
       },
       child: Container(
-        padding: EdgeInsets.all(10),
-        width: 150,
+        margin: EdgeInsets.only(right: 16),
+        width: 200,
         decoration: BoxDecoration(
-            color: Colors.grey[900], borderRadius: BorderRadius.circular(10)),
+          color: Colors.grey[900],
+          borderRadius: BorderRadius.circular(16),
+        ),
+        padding: EdgeInsets.all(12),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset(imagePath, width: 100, height: 80, fit: BoxFit.cover),
+            Image.asset(imagePath, width: 200, height: 120, fit: BoxFit.cover),
             SizedBox(height: 10),
-            Text(title,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center),
+            Text(
+              title,
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
           ],
         ),
       ),
